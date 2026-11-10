@@ -1,0 +1,31 @@
+{
+  "name": "al-haqq",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AL-HAQQ — independent investigative journalism publication",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "db:seed-sql": "node --no-warnings scripts/build-seed-sql.mjs",
+    "db:migrate:local": "wrangler d1 migrations apply al-haqq-db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply al-haqq-db --remote",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy"
+  },
+  "dependencies": {
+    "@opennextjs/cloudflare": "^1.20.16",
+    "marked": "^18.2.0",
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "wrangler": "^4.160.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "workerd@1.20261110.1": true
+  }
+}
