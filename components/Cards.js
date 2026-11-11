@@ -45,6 +45,24 @@ export function Photo({ hero, ratio = "3 / 2", caption = false, priority = false
   );
 }
 
+// The editor's portrait, or an engraved monogram until a photograph is added in Admin → Settings.
+export function Portrait({ src, name = "Abdi Fatah", label, className = "" }) {
+  const initials = name.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
+  return (
+    <div className={`portrait ${src ? "" : "portrait--monogram"} ${className}`}>
+      {src ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={src} alt={`Portrait of ${name}`} />
+      ) : (
+        <div className="monogram" role="img" aria-label={`${name} monogram`}>
+          <span className="monogram__initials">{initials}</span>
+          {label && <span className="monogram__label">{label}</span>}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function Meta({ a, showAuthor = true }) {
   return (
     <div className="meta">

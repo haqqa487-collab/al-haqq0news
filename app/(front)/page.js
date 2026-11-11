@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getLead, getEditorsPicks, getPublished, getSettings } from "@/lib/content";
-import { Card, ListCard, Photo, Meta, Kicker, SectionHead } from "@/components/Cards";
+import { Card, ListCard, Photo, Meta, Kicker, SectionHead, Portrait } from "@/components/Cards";
+import { formatDate } from "@/lib/format";
 import { NewsletterForm } from "@/components/Forms";
 import { SECTIONS, slugify } from "@/lib/sections";
 
@@ -50,6 +51,21 @@ export default async function Home() {
 
   return (
     <>
+      {/* Latest headlines strip */}
+      <div className="ticker" aria-label="Latest headlines">
+        <div className="wrap ticker__inner">
+          <span className="ticker__label">Latest</span>
+          <ul className="ticker__list">
+            {all.slice(0, 5).map((a) => (
+              <li key={a.id}>
+                <time dateTime={a.published_at}>{formatDate(a.published_at, { year: undefined, month: "short" })}</time>
+                <Link href={`/article/${a.slug}`}>{a.title.split(":")[0]}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
       {/* A. Lead story */}
       <section className="lead" aria-labelledby="lead-title">
         <div className="wrap lead__grid">
@@ -73,6 +89,23 @@ export default async function Home() {
               <ListCard key={a.id} a={a} />
             ))}
           </aside>
+        </div>
+      </section>
+
+      {/* Principles */}
+      <section className="pillars" aria-label="What AL-HAQQ stands for">
+        <div className="wrap pillars__grid">
+          {[
+            ["I", "Evidence", "Every claim is sourced. Every source is linked. Facts, allegations and open questions are labelled separately."],
+            ["II", "Independence", "No government, party, armed group, donor or advertiser decides what we publish."],
+            ["III", "Accountability", "We follow decisions to their consequences — and correct our own mistakes in public."],
+          ].map(([n, t, d]) => (
+            <div key={t} className="pillar">
+              <span className="pillar__num">{n}</span>
+              <h2 className="pillar__title">{t}</h2>
+              <p className="pillar__text">{d}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -181,14 +214,7 @@ export default async function Home() {
           <SectionHead title="Opinion & Analysis" href="/section/opinion" />
           <div className="opinion">
             <div className="opinion__author">
-              <div className="portrait">
-                {settings.author_portrait ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={settings.author_portrait} alt="Portrait of Abdi Fatah" />
-                ) : (
-                  <div className="portrait__empty" aria-label="Portrait placeholder">AF</div>
-                )}
-              </div>
+              <Portrait src={settings.author_portrait} name={settings.author_name} label="Editor" />
               <div className="kicker">From the editor</div>
               <h3 className="headline" style={{ fontSize: 30 }}>Abdi Fatah</h3>
               <p className="dek" style={{ fontSize: 16 }}>{settings.author_short_bio}</p>

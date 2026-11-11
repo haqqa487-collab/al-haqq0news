@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getPublished, getSettings } from "@/lib/content";
-import { Card, ListCard, SectionHead } from "@/components/Cards";
+import { Card, ListCard, SectionHead, Portrait } from "@/components/Cards";
 
 export async function generateMetadata() {
   const s = await getSettings();
@@ -26,16 +26,7 @@ export default async function AuthorPage() {
     <div className="wrap">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       <section className="author-hero">
-        <div className="portrait">
-          {s.author_portrait ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={s.author_portrait} alt={`Portrait of ${s.author_name}`} />
-          ) : (
-            <div className="portrait__empty" role="img" aria-label="Portrait placeholder">
-              <div style={{ textAlign: "center" }}>AF<div style={{ fontFamily: "var(--f-body)", fontSize: 11, letterSpacing: ".14em", textTransform: "uppercase", marginTop: 6 }}>Portrait to be added</div></div>
-            </div>
-          )}
-        </div>
+        <Portrait src={s.author_portrait} name={s.author_name} label="Founder & Editor" />
         <div>
           <div className="kicker">Founder &amp; Editor</div>
           <h1>{s.author_name}</h1>

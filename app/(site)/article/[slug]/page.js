@@ -5,7 +5,8 @@ import { isEditor } from "@/lib/auth";
 import { renderMarkdown } from "@/lib/markdown";
 import { formatDate, siteUrl } from "@/lib/format";
 import { sectionBySlug, LEDGER_KINDS, slugify } from "@/lib/sections";
-import { Photo, Card, SectionHead } from "@/components/Cards";
+import { Photo, Card, SectionHead, Portrait } from "@/components/Cards";
+import ReadingProgress from "@/components/ReadingProgress";
 import { ShareBar } from "@/components/Forms";
 
 async function load(slug) {
@@ -62,6 +63,7 @@ export default async function ArticlePage({ params }) {
 
   return (
     <article>
+      <ReadingProgress />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
 
       {a.status !== "published" && (
@@ -71,7 +73,7 @@ export default async function ArticlePage({ params }) {
       )}
 
       <header className="article-head wrap">
-        <Link href={`/section/${a.section}`} className="kicker">{section?.name}{a.kicker ? ` · ${a.kicker.split("·").pop().trim()}` : ""}</Link>
+        <Link href={`/section/${a.section}`} className="kicker">{section?.name}{a.kicker ? ` · ${a.kicker.split("·")[0].trim()}` : ""}</Link>
         <h1 className="headline">{a.title}</h1>
         <p className="dek">{a.dek}</p>
         <div className="article-head__meta byline">
@@ -159,14 +161,7 @@ export default async function ArticlePage({ params }) {
             )}
 
             <section className="author-box" aria-label="About the author">
-              <div className="portrait">
-                {settings.author_portrait ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={settings.author_portrait} alt="Portrait of Abdi Fatah" />
-                ) : (
-                  <div className="portrait__empty" style={{ fontSize: 26 }}>AF</div>
-                )}
-              </div>
+              <Portrait src={settings.author_portrait} name={settings.author_name} className="portrait--sm" />
               <div>
                 <div className="kicker">About the author</div>
                 <h3>{settings.author_name}</h3>
