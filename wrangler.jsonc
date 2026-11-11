@@ -15,6 +15,12 @@
       "migrations_dir": "migrations"
     }
   ],
+  "workers_dev": true,
+  "preview_urls": true,
+  "routes": [
+    { "pattern": "al-haqq.news/*", "zone_name": "al-haqq.news" },
+    { "pattern": "www.al-haqq.news/*", "zone_name": "al-haqq.news" }
+  ],
   "vars": { "SITE_URL": "https://al-haqq.news" },
   "observability": { "enabled": true }
 }
