@@ -11,7 +11,8 @@
     "db:migrate:local": "wrangler d1 migrations apply al-haqq-db --local",
     "db:migrate:remote": "wrangler d1 migrations apply al-haqq-db --remote",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy"
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "deploy:cloudflare": "wrangler d1 migrations apply al-haqq-db --remote && opennextjs-cloudflare deploy"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.20.16",

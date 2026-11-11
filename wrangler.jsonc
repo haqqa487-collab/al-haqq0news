@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "al-haqq",
+  "account_id": "d7cd7f795dea0bde6ac7dfec2932ecf2",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-11-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
@@ -10,8 +11,7 @@
     {
       "binding": "DB",
       "database_name": "al-haqq-db",
-      // Replaced with the real id after `npx wrangler d1 create al-haqq-db`
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "cf250094-e542-41cf-90bc-fb4cbf13921f",
       "migrations_dir": "migrations"
     }
   ],

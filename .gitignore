@@ -11,3 +11,5 @@ data/*.db-*
 .dev.vars
 .claude
 data
+CLOUDFLARE-SECRETS.txt
+.~lock*
